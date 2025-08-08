@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*  # 清理缓存减小体积
 
 # 设置Python3为默认Python
-RUN ln -s /usr/bin/python3 /usr/bin/python && \
-    ln -s /usr/bin/pip3 /usr/bin/pip
+RUN if [ ! -f /usr/bin/python ]; then ln -s /usr/bin/python3 /usr/bin/python; fi && \
+    if [ ! -f /usr/bin/pip ]; then ln -s /usr/bin/pip3 /usr/bin/pip; fi
 
 # 设置工作目录
 WORKDIR /python-mqtt-wol
@@ -37,4 +37,5 @@ ENV TOPIC=""
 
 # 启动命令
 CMD ["python", "app.py"]
+
     
