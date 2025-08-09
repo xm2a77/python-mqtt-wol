@@ -10,7 +10,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     python3-dev \
     python3-setuptools \
-    && rm -rf /var/lib/apt/lists/*  # 清理缓存减小体积
+    # 添加net rpc所需的包
+    samba-common-bin \
+    cifs-utils \
+    && rm -rf /var/lib/apt/lists/*
 
 # 设置Python3为默认Python
 RUN if [ ! -f /usr/bin/python ]; then ln -s /usr/bin/python3 /usr/bin/python; fi && \
@@ -36,6 +39,5 @@ ENV TOPIC=""
 
 
 # 启动命令
-CMD ["python", "app.py"]
-
+CMD ["python", "main.py"]
     
