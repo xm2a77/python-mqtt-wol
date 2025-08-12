@@ -66,7 +66,7 @@ class BemfaMQTTReceiver:
     def _handle_wake(self) -> None:
         print(f"执行唤醒操作 (IP: {self.target_ip}, MAC: {self.target_mac})")
         try:
-            wake = Wake(self.target_ip, self.target_mac)
+            wake = Wake(self.target_mac)
             wake.wake_on_lan()
             print("唤醒指令已发送")
         except Exception as e:
